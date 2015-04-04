@@ -1,5 +1,5 @@
 // start slingin' some d3 here.
-var height = 400;
+var height = 800;
 var width = 800;
 var highScore = 0;
 var currentScore = 0;
@@ -10,9 +10,9 @@ var enemyX = 0;
 var enemyY = 0;
 var collisionDistance = 30;
 var playerRadius = 10;
-var enemyRadius = 15
+var enemyRadius = 15;
 var position = _.range(12);
-
+var rotation = 0;
 var svg = d3.select('body')
             .append('svg')
             .attr('width', width)
@@ -29,17 +29,16 @@ var randomNum = function(dimension){
   return Math.floor(Math.random() * dimension);
 }
 
-//var rotateTranslate = d3.svg.transform().rotate(-45).translate(200, 100);
-
+function rotTween(d) {
+    enemy = circles[0][d];
+    return "rotate(" + Math.random()*rotation + "," + enemy.cx.animVal.value + "," + enemy.cy.animVal.value + ")";
+}
 
 var update = function(){
+
   svg.selectAll('.enemy')
-     .transition()
-     .duration(1000)
-     // .each("start", function() {
-     //  d3.select(this)
-     //    .attr("transform", rotateTranslate);
-     // });
+     .transition().duration(1500)
+     .attr("transform", function(d){return rotTween(d)})
      .attr('cx', function(d){ return randomNum(width) })
      .attr('cy', function(d){ return randomNum(height) });
 }
@@ -92,7 +91,7 @@ player.attr('cx', width/2)
     .style('stroke-width', 7)
     .call(drag);
 
-setInterval(update , 1000);
+setInterval(update , 1500);
 
 setInterval(function(){
   if(collision()){
@@ -104,6 +103,9 @@ setInterval(function(){
   d3.select('.current span').text(currentScore);
   d3.select('.high span').text(highScore);
   d3.select('.collisions span').text(collisions);
-}, 200);
+}, 50);
 
+setInterval(function() {
+  rotation += 15;
+}, 150);
 
