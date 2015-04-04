@@ -4,7 +4,6 @@ var width = 800;
 var highScore = 0;
 var currentScore = 0;
 var collisions = 0;
-
 var playerX = 0;
 var playerY = 0;
 var enemyX = 0;
@@ -12,13 +11,12 @@ var enemyY = 0;
 var collisionDistance = 30;
 var playerRadius = 10;
 var enemyRadius = 15
+var position = _.range(12);
 
 var svg = d3.select('body')
             .append('svg')
             .attr('width', width)
             .attr('height', height)
-
-var position = _.range(12);
 
 var circles = svg.selectAll('circle')
                 .data(position)
@@ -27,19 +25,21 @@ var circles = svg.selectAll('circle')
 
 var player = svg.append('circle');
 
-/**
- * [randomNum description]
- * @param  {[type]} dimension [description]
- * @return {[type]}           [description]
- */
 var randomNum = function(dimension){
   return Math.floor(Math.random() * dimension);
 }
+
+//var rotateTranslate = d3.svg.transform().rotate(-45).translate(200, 100);
+
 
 var update = function(){
   svg.selectAll('.enemy')
      .transition()
      .duration(1000)
+     // .each("start", function() {
+     //  d3.select(this)
+     //    .attr("transform", rotateTranslate);
+     // });
      .attr('cx', function(d){ return randomNum(width) })
      .attr('cy', function(d){ return randomNum(height) });
 }
