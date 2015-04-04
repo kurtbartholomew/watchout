@@ -12,7 +12,6 @@ var collisionDistance = 30;
 var playerRadius = 10;
 var enemyRadius = 15;
 var position = _.range(12);
-var rotation = 0;
 var svg = d3.select('body')
             .append('svg')
             .attr('width', width)
@@ -31,7 +30,7 @@ var randomNum = function(dimension){
 
 function rotTween(d) {
     enemy = circles[0][d];
-    return "rotate(" + Math.random()*rotation + "," + enemy.cx.animVal.value + "," + enemy.cy.animVal.value + ")";
+    return "rotate(" + Math.random()*360 + "," + enemy.cx.animVal.value + "," + enemy.cy.animVal.value + ")";
 }
 
 var update = function(){
@@ -80,6 +79,10 @@ circles.attr('cx', function(d){ return randomNum(width-20) })
        .attr('cy', function(d){ return randomNum(height-20) })
        .attr('r', enemyRadius)
        .attr('class', 'enemy')
+       // .append('image')
+       // .attr('xlink:href', 'fredstar.png')
+       // .attr('width', enemyRadius * 2)
+       // .attr('height', enemyRadius * 2);
        .style('fill', 'url(#image)');
 
 player.attr('cx', width/2)
@@ -104,8 +107,4 @@ setInterval(function(){
   d3.select('.high span').text(highScore);
   d3.select('.collisions span').text(collisions);
 }, 50);
-
-setInterval(function() {
-  rotation += 15;
-}, 150);
 
