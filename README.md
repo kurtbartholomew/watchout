@@ -1,2 +1,2 @@
 #watchout
-This is a project I completed as a student at [hackreactor](http://hackreactor.com). This project was worked on with a pair.
+An HTML5 and Javascript game similar to asteroids using D3
